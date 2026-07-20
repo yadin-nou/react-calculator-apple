@@ -17,22 +17,11 @@ export const Calculator = ({ displayData }) => {
     }
     // condition with "."
     if (btn === ".") {
-      // if (data.slice(-1) === btn || ) {
-      //   btn = "";
-      // } else if (data.includes(btn)) {
-      //   operator.forEach((item, index) => {
-      //     if (String(data).lastIndexOf(item, -1)) {
-      //       if (data.includes(item)) {
-      //         console.log(data.split(item));
-      //         return;
-      //       }
-      //     }
-      //   });
       let lastString = "";
       let lastIndex = [];
       operator.forEach((item, index) => {
         //check data has operator or not, if have get only the last index
-        // then slice the data by the last index
+        // then slice the data by the last index and push to array lastIndex
         if (data.includes(item)) {
           lastIndex.push(Number(data.lastIndexOf(item)));
         }
@@ -43,18 +32,35 @@ export const Calculator = ({ displayData }) => {
       lastString = data.slice(maxIndex + 1);
       //console.log(lastString);
       if (lastString.includes(btn)) {
-        // console.log(lastIndex, "Last string has dot", lastString);
+        // if laststring has dot, not allow to type
         btn = "";
       } else {
-        // console.log("lastString no Dot");
+        // if lastString No dot, allow to type
         btn = btn;
       }
     }
     // condition with operator =
     if (btn === "=") {
+      btn = "";
+      setData(eval(data));
     }
     // condition with any operator
     if (operator.includes(btn)) {
+      // let lastString = "";
+      let lastIndex = [];
+      if (data === "") {
+        btn !== "-" ? (btn = "0" + btn) : (btn = btn);
+      } else {
+        // if data have operator at the last index
+        lastIndex = data.slice(-1);
+        if (operator.includes(lastIndex)) {
+          let oldData = data.slice(0, data.length - 1);
+          setData(oldData);
+        } else {
+          btn = btn;
+        }
+        //if data not have operator at the last index
+      }
     }
 
     setData((oldData) => oldData + btn);
