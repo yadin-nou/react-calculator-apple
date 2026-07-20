@@ -1,15 +1,16 @@
 import { useEffect } from "react";
+import { Button } from "./Button";
+const keyAllowed = "0123456789+-*/.%Enter=";
 const CalLayout = ({ btnData }) => {
   const getData = (e) => {
     btnData(e.target.innerText);
   };
-  const keyAllowed = "0123456789+-*/.%Enter=";
+
   useEffect(() => {
     // use effect to render only one time when key down
     const handleKeydwon = (e) => {
       if (keyAllowed.includes(e.key) || e.key === "Backspace") {
         btnData(String(e.key));
-        //console.log(e.key);
       }
     };
     window.addEventListener("keydown", handleKeydwon);
@@ -19,65 +20,38 @@ const CalLayout = ({ btnData }) => {
     // The effect re-attaches whenever a new btnData arrives from the parent:
   }, [btnData]);
 
+  const btnObj = [
+    { btnCl: "btn-ac", label: "AC" },
+    { btnCl: "btn-c", label: "C" },
+    { btnCl: "btn-mod", label: "%" },
+    { btnCl: "btn-divide", label: "/" },
+    { btnCl: "btn-7", label: "7" },
+    { btnCl: "btn-8", label: "8" },
+    { btnCl: "btn-9", label: "9" },
+    { btnCl: "btn-mul", label: "*" },
+    { btnCl: "btn-4", label: "4" },
+    { btnCl: "btn-5", label: "5" },
+    { btnCl: "btn-6", label: "6" },
+    { btnCl: "btn-minus", label: "-" },
+    { btnCl: "btn-1", label: "1" },
+    { btnCl: "btn-2", label: "2" },
+    { btnCl: "btn-3", label: "3" },
+    { btnCl: "btn-plus", label: "+" },
+    { btnCl: "btn-0", label: "0" },
+    { btnCl: "btn-dot", label: "." },
+    { btnCl: "btn-equal", label: "=" },
+  ];
+
   return (
     <>
-      <div className="btn btn-ac" onClick={getData}>
-        AC
-      </div>
-      <div className="btn btn-c" onClick={getData}>
-        C
-      </div>
-      <div className="btn btn-mod" onClick={getData}>
-        %
-      </div>
-      <div className="btn btn-divide" onClick={getData}>
-        /
-      </div>
-      <div className="btn btn-7" onClick={getData}>
-        7
-      </div>
-      <div className="btn btn-8" onClick={getData}>
-        8
-      </div>
-      <div className="btn btn-9" onClick={getData}>
-        9
-      </div>
-      <div className="btn btn-mul" onClick={getData}>
-        *
-      </div>
-      <div className="btn btn-4" onClick={getData}>
-        4
-      </div>
-      <div className="btn btn-5" onClick={getData}>
-        5
-      </div>
-      <div className="btn btn-6" onClick={getData}>
-        6
-      </div>
-      <div className="btn btn-minus" onClick={getData}>
-        -
-      </div>
-      <div className="btn btn-1" onClick={getData}>
-        1
-      </div>
-      <div className="btn btn-2" onClick={getData}>
-        2
-      </div>
-      <div className="btn btn-3" onClick={getData}>
-        3
-      </div>
-      <div className="btn btn-plus" onClick={getData}>
-        +
-      </div>
-      <div className="btn btn-0" onClick={getData}>
-        0
-      </div>
-      <div className="btn btn-dot" onClick={getData}>
-        .
-      </div>
-      <div className="btn btn-equal" onClick={getData}>
-        =
-      </div>
+      {btnObj.map((btn, index) => (
+        <Button
+          key={index}
+          getData={getData}
+          label={btn.label}
+          cls={btn.btnCl}
+        />
+      ))}
     </>
   );
 };
