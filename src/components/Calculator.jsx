@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CalLayout from "./CalLayout";
 
 export const Calculator = ({ displayData }) => {
@@ -6,7 +6,7 @@ export const Calculator = ({ displayData }) => {
   const operator = ["+", "-", "/", "*", "%"];
 
   const btnData = (btn) => {
-    console.log(btn);
+    //console.log(btn);
 
     // condition with  AC
     if (btn === "AC") {

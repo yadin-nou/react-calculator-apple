@@ -16,11 +16,9 @@ const CalLayout = ({ btnData }) => {
     return () => {
       window.removeEventListener("keydown", handleKeydwon);
     };
-  }, []);
+    // The effect re-attaches whenever a new btnData arrives from the parent:
+  }, [btnData]);
 
-  //if (keys) btnData(keys);
-
-  //console.log("ddd", keys);
   return (
     <>
       <div className="btn btn-ac" onClick={getData}>
