@@ -1,7 +1,26 @@
+import { useEffect } from "react";
 const CalLayout = ({ btnData }) => {
   const getData = (e) => {
     btnData(e.target.innerText);
   };
+  const keyAllowed = "0123456789+-*/.%Enter=";
+  useEffect(() => {
+    // use effect to render only one time when key down
+    const handleKeydwon = (e) => {
+      if (keyAllowed.includes(e.key) || e.key === "Backspace") {
+        btnData(String(e.key));
+        //console.log(e.key);
+      }
+    };
+    window.addEventListener("keydown", handleKeydwon);
+    return () => {
+      window.removeEventListener("keydown", handleKeydwon);
+    };
+  }, []);
+
+  //if (keys) btnData(keys);
+
+  //console.log("ddd", keys);
   return (
     <>
       <div className="btn btn-ac" onClick={getData}>

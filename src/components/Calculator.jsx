@@ -4,14 +4,17 @@ import CalLayout from "./CalLayout";
 export const Calculator = ({ displayData }) => {
   const [data, setData] = useState("");
   const operator = ["+", "-", "/", "*", "%"];
+
   const btnData = (btn) => {
+    console.log(btn);
+
     // condition with  AC
     if (btn === "AC") {
       setData("");
       btn = "";
     }
     //condition with  C
-    if (btn === "C") {
+    if (btn === "C" || btn === "Backspace") {
       setData(data.slice(0, -1));
       btn = "";
     }
@@ -40,7 +43,7 @@ export const Calculator = ({ displayData }) => {
       }
     }
     // condition with operator =
-    if (btn === "=") {
+    if (btn === "=" || btn === "Enter") {
       btn = "";
       setData(eval(data));
     }
@@ -57,15 +60,17 @@ export const Calculator = ({ displayData }) => {
           let oldData = data.slice(0, data.length - 1);
           setData(oldData);
         } else {
+          //if data not have operator at the last index
           btn = btn;
         }
-        //if data not have operator at the last index
       }
     }
 
     setData((oldData) => oldData + btn);
   };
+
   displayData(data);
+
   return (
     <>
       <CalLayout btnData={btnData} />
